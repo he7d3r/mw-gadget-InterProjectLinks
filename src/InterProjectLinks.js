@@ -1,8 +1,3 @@
-/*global $, document, mw */
-/*jslint devel: true, browser: true, white: true, plusplus: true */
-(function(){
-'use strict';
-
 /** Adiciona ligações para os correlatos na barra lateral ([[MediaZilla:708]])
  * Adiciona links para os correlatos informados com [[Template:Correlatos]],
  * nas páginas especiais e nas mensagens do MediaWiki
@@ -16,7 +11,13 @@
  * @author [[commons:User:Ilmari Karonen]]
  * @author [[commons:User:DieBuche]]
  * @author [[commons:User:Krinkle]]
+ * @tracking: [[Special:GlobalUsage/User:Helder.wiki/Tools/InterProjectLinks.js]] ([[File:User:Helder.wiki/Tools/InterProjectLinks.js]])
  */
+/*jslint browser: true, white: true, plusplus: true*/
+/*global jQuery, mediaWiki */
+( function ( $, mw /* , undefined */ ) {
+'use strict';
+
 function getProjectListHTML() {
 	// var interPr = document.getElementById('interProject');
 	// if (interPr) {
@@ -129,4 +130,4 @@ if ( mw.config.get( 'wgDBname' ) !== 'ptwikibooks' ) {
 	$(renderProjectsPortlet);
 }
 
-}());
+}( jQuery, mediaWiki ) );
