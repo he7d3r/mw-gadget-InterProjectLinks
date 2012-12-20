@@ -76,7 +76,7 @@ function getProjectListHTML() {
 			list += '<li><a href="' + url + '">' + wiki[i].text + '<\/a><\/li>';
 		}
 	}
-	// list = '<h5>Correlatos<\/h5><div class="pBody"><ul>' + list + '<\/ul><\/div>';
+	// list = '<h3>Correlatos<\/h3><div class="pBody"><ul>' + list + '<\/ul><\/div>';
 	list = '<ul>' + list + '<\/ul>';
 	return list;
 	// iProjectSys.innerHTML = list;
@@ -115,7 +115,7 @@ function renderProjectsPortlet() {
 	interProject.className = (mw.config.get('skin') === 'vector' ? 'portal' : 'portlet') + ' collapsed';
 
 	interProject.innerHTML =
-		'<h5>Correlatos<\/h5><div class="' + (mw.config.get('skin') === 'vector' ? 'body' : 'pBody') + '">' +
+		'<h3>Correlatos<\/h3><div class="' + (mw.config.get('skin') === 'vector' ? 'body' : 'pBody') + '">' +
 		listHTML + '<\/div>';
 
 	if (toolBox && toolBox.nextSibling) {
