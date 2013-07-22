@@ -61,7 +61,7 @@ function getProjectListHTML() {
 		{ text: 'Wikispecies', link: 'species.wikimedia' }
 	] );
 
-	canonicalName += ':' + (mw.config.get('wgCanonicalSpecialPageName') || mw.config.get('wgTitle').replace(' ', '_'));
+	canonicalName += ':' + (mw.config.get('wgCanonicalSpecialPageName') || mw.config.get('wgTitle').replace(/ /g, '_'));
 	pageURLend = pageURLend.replace( mw.config.get('wgPageName'), canonicalName );
 
 	// var iProjectSys = document.createElement('div');
@@ -69,10 +69,10 @@ function getProjectListHTML() {
 	server = mw.config.get( 'wgServer' ) === 'https://secure.wikimedia.org'? 'https://$1.org' : '//$1.org';
 	for ( i=0 ; i < wiki.length; i++ ) {
 		if (wiki[i].link.indexOf(projName) !== -1){
-			url = server.replace('$1', wiki[i].link.replace('$1', (cLang !== 'pt'? 'pt' : 'en') ) ) + pageURLend;
+			url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', (cLang !== 'pt'? 'pt' : 'en') ) ) + pageURLend );
 			list += '<li><a href="' + url + '" style="font-weight:bold;">' + wiki[i].text + (cLang !== 'pt'? '' : ' (EN)') + '<\/a><\/li>';
 		} else {
-			url = server.replace('$1', wiki[i].link.replace('$1', cLang)) + pageURLend;
+			url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', cLang)) + pageURLend );
 			list += '<li><a href="' + url + '">' + wiki[i].text + '<\/a><\/li>';
 		}
 	}
