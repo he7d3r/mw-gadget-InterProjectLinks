@@ -53,10 +53,12 @@ function getProjectListHTML() {
 		{ text: 'Wikcionário', link: '$1.wiktionary' },
 		{ text: 'Wikiversidade', link: '$1.wikiversity' },
 		{ text: 'Wikinotícias', link: '$1.wikinews' },
+		{ text: 'Wikivoyage', link: '$1.wikivoyage' },
 		{ text: 'Wikiquote', link: '$1.wikiquote' },
 		//Wikis without versions in each language
 		{ text: 'Wikimedia Commons', link: 'commons.wikimedia' },
 		{ text: 'MediaWiki', link: 'www.mediawiki' },
+		{ text: 'Wikidata', link: 'www.wikidata' },
 		{ text: 'Meta-Wiki', link: 'meta.wikimedia' },
 		{ text: 'Wikispecies', link: 'species.wikimedia' }
 	] );
