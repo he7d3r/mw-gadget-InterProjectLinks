@@ -37,7 +37,7 @@ function getProjectListHTML() {
 		list = '',
 		i;
 
-	//If the wiki has versions in each language, wgDBname starts with the language code
+	//If the wiki has versions in each language, mw.config.get('wgDBname') starts with the language code
 	if ( langRegExp.test(projName) ) {
 		projName = projName.replace(langRegExp, '');
 		if (projName === 'wiki') {
