@@ -11,7 +11,6 @@
  * @author [[commons:User:Ilmari Karonen]]
  * @author [[commons:User:DieBuche]]
  * @author [[commons:User:Krinkle]]
- * @tracking: [[Special:GlobalUsage/User:Helder.wiki/Tools/InterProjectLinks.js]] ([[File:User:Helder.wiki/Tools/InterProjectLinks.js]])
  */
 /*jslint browser: true, white: true, plusplus: true*/
 /*global jQuery, mediaWiki */
