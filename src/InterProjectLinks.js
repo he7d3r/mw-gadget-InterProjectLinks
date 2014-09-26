@@ -12,8 +12,6 @@
  * @author [[commons:User:DieBuche]]
  * @author [[commons:User:Krinkle]]
  */
-/*jslint browser: true, white: true, plusplus: true*/
-/*global jQuery, mediaWiki */
 ( function ( $, mw /* , undefined */ ) {
 'use strict';
 
