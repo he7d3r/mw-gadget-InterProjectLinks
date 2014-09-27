@@ -12,121 +12,121 @@
  * @author [[commons:User:DieBuche]]
  * @author [[commons:User:Krinkle]]
  */
-( function ( $, mw /* , undefined */ ) {
-'use strict';
+( function ( mw, $ ) {
+	'use strict';
 
-function getProjectListHTML() {
-	// var interPr = document.getElementById('interProject');
-	// if (interPr) {
-	//	return interPr.innerHTML;
-	// }
-	if ($.inArray(mw.config.get('wgNamespaceNumber'), [-1, 2, 3, 8, 9]) === -1) {
-		return null;
-	}
-
-	var	wiki = [ ], url, server,
-		cLang = mw.config.get( 'wgContentLanguage' ),
-		langRegExp = new RegExp( '^' + cLang ),
-		projName = mw.config.get( 'wgDBname' ),
-		pageURLbegin = mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace('/wiki/$1', ''),
-		canonicalName = mw.config.get('wgCanonicalNamespace'),
-		pageURLend = decodeURI(document.URL.replace(new RegExp ( '^.+?' + $.escapeRE( pageURLbegin ) ), '')),
-		list = '',
-		i;
-
-	//If the wiki has versions in each language, mw.config.get('wgDBname') starts with the language code
-	if ( langRegExp.test(projName) ) {
-		projName = projName.replace(langRegExp, '');
-		if (projName === 'wiki') {
-			projName = 'wikipedia';
+	function getProjectListHTML() {
+		// var interPr = document.getElementById('interProject');
+		// if (interPr) {
+		//	return interPr.innerHTML;
+		// }
+		if ($.inArray(mw.config.get('wgNamespaceNumber'), [-1, 2, 3, 8, 9]) === -1) {
+			return null;
 		}
-	}
 
-	// FIXME: This seems uncessary after protocol relative URLs
-	wiki = wiki.concat( [
-		{ text: 'Wikipédia', link: '$1.wikipedia' },
-		{ text: 'Wikilivros', link: '$1.wikibooks' },
-		{ text: 'Wikisource', link: '$1.wikisource' },
-		{ text: 'Wikcionário', link: '$1.wiktionary' },
-		{ text: 'Wikiversidade', link: '$1.wikiversity' },
-		{ text: 'Wikinotícias', link: '$1.wikinews' },
-		{ text: 'Wikivoyage', link: '$1.wikivoyage' },
-		{ text: 'Wikiquote', link: '$1.wikiquote' },
-		//Wikis without versions in each language
-		{ text: 'Wikimedia Commons', link: 'commons.wikimedia' },
-		{ text: 'MediaWiki', link: 'www.mediawiki' },
-		{ text: 'Wikidata', link: 'www.wikidata' },
-		{ text: 'Meta-Wiki', link: 'meta.wikimedia' },
-		{ text: 'Wikispecies', link: 'species.wikimedia' }
-	] );
+		var	wiki = [ ], url, server,
+			cLang = mw.config.get( 'wgContentLanguage' ),
+			langRegExp = new RegExp( '^' + cLang ),
+			projName = mw.config.get( 'wgDBname' ),
+			pageURLbegin = mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace('/wiki/$1', ''),
+			canonicalName = mw.config.get('wgCanonicalNamespace'),
+			pageURLend = decodeURI(document.URL.replace(new RegExp ( '^.+?' + $.escapeRE( pageURLbegin ) ), '')),
+			list = '',
+			i;
 
-	canonicalName += ':' + (mw.config.get('wgCanonicalSpecialPageName') || mw.config.get('wgTitle').replace(/ /g, '_'));
-	pageURLend = pageURLend.replace( mw.config.get('wgPageName'), canonicalName );
-
-	// var iProjectSys = document.createElement('div');
-	// iProjectSys.style.marginTop = '0.7em';
-	server = mw.config.get( 'wgServer' ) === 'https://secure.wikimedia.org'? 'https://$1.org' : '//$1.org';
-	for ( i=0 ; i < wiki.length; i++ ) {
-		if (wiki[i].link.indexOf(projName) !== -1){
-			url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', (cLang !== 'pt'? 'pt' : 'en') ) ) + pageURLend );
-			list += '<li><a href="' + url + '" style="font-weight:bold;">' + wiki[i].text + (cLang !== 'pt'? '' : ' (EN)') + '<\/a><\/li>';
-		} else {
-			url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', cLang)) + pageURLend );
-			list += '<li><a href="' + url + '">' + wiki[i].text + '<\/a><\/li>';
+		//If the wiki has versions in each language, mw.config.get('wgDBname') starts with the language code
+		if ( langRegExp.test(projName) ) {
+			projName = projName.replace(langRegExp, '');
+			if (projName === 'wiki') {
+				projName = 'wikipedia';
+			}
 		}
-	}
-	// list = '<h3>Correlatos<\/h3><div class="pBody"><ul>' + list + '<\/ul><\/div>';
-	list = '<ul>' + list + '<\/ul>';
-	return list;
-	// iProjectSys.innerHTML = list;
-	// document.getElementById( 'p-tb' ).appendChild( iProjectSys );
-}
 
-// TODO: Remover parte deste código quando o [[bugzilla:23515]] for resolvido
-function renderProjectsPortlet() {
-	var idNum, listHTML, toolBox, panel, panelIds, interProject;
-	if (document.getElementById('p-interproject')) {
-		return;  // avoid double inclusion
-	}
-	listHTML = getProjectListHTML();
-	if (!listHTML) {
-		return;
-	}
+		// FIXME: This seems uncessary after protocol relative URLs
+		wiki = wiki.concat( [
+			{ text: 'Wikipédia', link: '$1.wikipedia' },
+			{ text: 'Wikilivros', link: '$1.wikibooks' },
+			{ text: 'Wikisource', link: '$1.wikisource' },
+			{ text: 'Wikcionário', link: '$1.wiktionary' },
+			{ text: 'Wikiversidade', link: '$1.wikiversity' },
+			{ text: 'Wikinotícias', link: '$1.wikinews' },
+			{ text: 'Wikivoyage', link: '$1.wikivoyage' },
+			{ text: 'Wikiquote', link: '$1.wikiquote' },
+			//Wikis without versions in each language
+			{ text: 'Wikimedia Commons', link: 'commons.wikimedia' },
+			{ text: 'MediaWiki', link: 'www.mediawiki' },
+			{ text: 'Wikidata', link: 'www.wikidata' },
+			{ text: 'Meta-Wiki', link: 'meta.wikimedia' },
+			{ text: 'Wikispecies', link: 'species.wikimedia' }
+		] );
 
-	toolBox = document.getElementById('p-tb');
-	if (toolBox) {
-		panel = toolBox.parentNode;
-	} else {
-		// stupid incompatible skins...
-		panelIds = ['panel', 'column-one', 'mw_portlets', 'mw-panel'];
-		for (idNum = 0; !panel && idNum < panelIds.length; idNum++) {
-			panel = document.getElementById(panelIds[idNum]);
+		canonicalName += ':' + (mw.config.get('wgCanonicalSpecialPageName') || mw.config.get('wgTitle').replace(/ /g, '_'));
+		pageURLend = pageURLend.replace( mw.config.get('wgPageName'), canonicalName );
+
+		// var iProjectSys = document.createElement('div');
+		// iProjectSys.style.marginTop = '0.7em';
+		server = mw.config.get( 'wgServer' ) === 'https://secure.wikimedia.org' ? 'https://$1.org' : '//$1.org';
+		for ( i = 0 ; i < wiki.length; i++ ) {
+			if (wiki[i].link.indexOf(projName) !== -1) {
+				url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', (cLang !== 'pt' ? 'pt' : 'en') ) ) + pageURLend );
+				list += '<li><a href="' + url + '" style="font-weight:bold;">' + wiki[i].text + (cLang !== 'pt' ? '' : ' (EN)') + '<\/a><\/li>';
+			} else {
+				url = mw.html.escape( server.replace('$1', wiki[i].link.replace('$1', cLang)) + pageURLend );
+				list += '<li><a href="' + url + '">' + wiki[i].text + '<\/a><\/li>';
+			}
 		}
-		// can't find a place for the portlet, try to undo hiding
-		if (!panel) {
-			mw.util.addCSS('#interProject, #sisterProjects { display: block; }');
+		// list = '<h3>Correlatos<\/h3><div class="pBody"><ul>' + list + '<\/ul><\/div>';
+		list = '<ul>' + list + '<\/ul>';
+		return list;
+		// iProjectSys.innerHTML = list;
+		// document.getElementById( 'p-tb' ).appendChild( iProjectSys );
+	}
+
+	// TODO: Remover parte deste código quando o [[bugzilla:23515]] for resolvido
+	function renderProjectsPortlet() {
+		var idNum, listHTML, toolBox, panel, panelIds, interProject;
+		if (document.getElementById('p-interproject')) {
+			return;  // avoid double inclusion
+		}
+		listHTML = getProjectListHTML();
+		if (!listHTML) {
 			return;
 		}
+
+		toolBox = document.getElementById('p-tb');
+		if (toolBox) {
+			panel = toolBox.parentNode;
+		} else {
+			// stupid incompatible skins...
+			panelIds = ['panel', 'column-one', 'mw_portlets', 'mw-panel'];
+			for (idNum = 0; !panel && idNum < panelIds.length; idNum++) {
+				panel = document.getElementById(panelIds[idNum]);
+			}
+			// can't find a place for the portlet, try to undo hiding
+			if (!panel) {
+				mw.util.addCSS('#interProject, #sisterProjects { display: block; }');
+				return;
+			}
+		}
+
+		interProject = document.createElement('div');
+		interProject.id = 'p-interproject';
+		interProject.className = (mw.config.get('skin') === 'vector' ? 'portal' : 'portlet') + ' collapsed';
+
+		interProject.innerHTML =
+			'<h3>Correlatos<\/h3><div class="' + (mw.config.get('skin') === 'vector' ? 'body' : 'pBody') + '">' +
+			listHTML + '<\/div>';
+
+		if (toolBox && toolBox.nextSibling) {
+			panel.insertBefore(interProject, toolBox.nextSibling);
+		} else {
+			panel.appendChild(interProject);
+		}
 	}
 
-	interProject = document.createElement('div');
-	interProject.id = 'p-interproject';
-	interProject.className = (mw.config.get('skin') === 'vector' ? 'portal' : 'portlet') + ' collapsed';
-
-	interProject.innerHTML =
-		'<h3>Correlatos<\/h3><div class="' + (mw.config.get('skin') === 'vector' ? 'body' : 'pBody') + '">' +
-		listHTML + '<\/div>';
-
-	if (toolBox && toolBox.nextSibling) {
-		panel.insertBefore(interProject, toolBox.nextSibling);
-	} else {
-		panel.appendChild(interProject);
+	if ( mw.config.get( 'wgDBname' ) !== 'ptwikibooks' ) {
+		mw.util.addCSS('#interProject, #sisterProjects { display: none; }');
+		$(renderProjectsPortlet);
 	}
-}
 
-if ( mw.config.get( 'wgDBname' ) !== 'ptwikibooks' ) {
-	mw.util.addCSS('#interProject, #sisterProjects { display: none; }');
-	$(renderProjectsPortlet);
-}
-
-}( jQuery, mediaWiki ) );
+}( mediaWiki, jQuery ) );
