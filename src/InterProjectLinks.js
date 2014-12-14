@@ -82,7 +82,7 @@
 		// document.getElementById( 'p-tb' ).appendChild( iProjectSys );
 	}
 
-	// TODO: Remover parte deste código quando o [[bugzilla:23515]] for resolvido
+	// TODO: Remover parte deste código quando o [[phab:T25515]] for resolvido
 	function renderProjectsPortlet() {
 		var idNum, listHTML, toolBox, panel, panelIds, interProject;
 		if (document.getElementById('p-interproject')) {
