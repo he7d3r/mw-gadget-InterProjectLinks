@@ -30,7 +30,7 @@
 			projName = mw.config.get( 'wgDBname' ),
 			pageURLbegin = mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace('/wiki/$1', ''),
 			canonicalName = mw.config.get('wgCanonicalNamespace'),
-			pageURLend = decodeURI(document.URL.replace(new RegExp ( '^.+?' + $.escapeRE( pageURLbegin ) ), '')),
+			pageURLend = decodeURI(document.URL.replace(new RegExp ( '^.+?' + mw.RegExp.escape( pageURLbegin ) ), '')),
 			list = '',
 			i;
 
@@ -125,8 +125,13 @@
 	}
 
 	if ( mw.config.get( 'wgDBname' ) !== 'ptwikibooks' ) {
-		mw.util.addCSS('#interProject, #sisterProjects { display: none; }');
-		$(renderProjectsPortlet);
+		$.when(
+			mw.loader.using( ['mediawiki.RegExp', 'mediawiki.util'] ),
+			$.ready
+		).then( function(){
+			mw.util.addCSS( '#interProject, #sisterProjects { display: none; }' );
+			$( renderProjectsPortlet );
+		} );
 	}
 
 }( mediaWiki, jQuery ) );
