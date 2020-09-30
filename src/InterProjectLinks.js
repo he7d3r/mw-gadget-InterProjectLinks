@@ -111,7 +111,7 @@
 
 		interProject = document.createElement('div');
 		interProject.id = 'p-interproject';
-		interProject.className = (mw.config.get('skin') === 'vector' ? 'portal' : 'portlet') + ' collapsed';
+		interProject.className = (mw.config.get('skin') === 'vector' ? 'vector-menu-portal' : 'portlet') + ' collapsed';
 
 		interProject.innerHTML =
 			'<h3>Correlatos<\/h3><div class="' + (mw.config.get('skin') === 'vector' ? 'body' : 'pBody') + '">' +
